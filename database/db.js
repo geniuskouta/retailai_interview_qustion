@@ -108,6 +108,7 @@ exports.getRecipe = async () => {
     } catch(err) {
         console.log(err);
     }
+    connection.close();
 }
 
 exports.getRecipeById = async (id) => {
@@ -118,11 +119,11 @@ exports.getRecipeById = async (id) => {
     } catch(err) {
         console.log(err);
     }
+    connection.close();
 }
 
 exports.createRecipe = async (recipe) => {
     try {
-        console.log(recipe)
         const connection = new Database(config);
         const response = await connection.query('INSERT INTO recipes set ?', {
             title: recipe.title,
@@ -135,6 +136,7 @@ exports.createRecipe = async (recipe) => {
     } catch(err) {
         console.log(err);
     }
+    connection.close();
 }
 
 exports.deleteRecipeById = (id) => {
