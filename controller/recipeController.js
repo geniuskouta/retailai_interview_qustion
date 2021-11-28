@@ -32,8 +32,10 @@ exports.updateRecipe = (recipe) => {
     // const recipe = new Recipe();
 }
 
-exports.deleteRecipeById = (id) => {
-    // const recipe = new Recipe();
-
-    // convert to json
+exports.deleteRecipeById = async (req, res) => {
+    const { id } = req.params;
+    const recipe = new Recipe();
+    return await recipe.deleteById(id).then(data => {
+        res.send(JSON.stringify(data));
+    });
 }

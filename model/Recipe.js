@@ -26,8 +26,8 @@ class Recipe {
         return await db.getRecipeById(id);
     }
 
-    deleteById(id) {
-        db.deleteRecipeById(id);
+    async deleteById(id) {
+        return await db.deleteRecipeById(id);
     }
 }
 

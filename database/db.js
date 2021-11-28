@@ -139,8 +139,18 @@ exports.createRecipe = async (recipe) => {
     connection.close();
 }
 
-exports.deleteRecipeById = (id) => {
-
+exports.deleteRecipeById = async (id) => {
+    try {
+        const connection = new Database(config);
+        const response = await connection.query('DELETE FROM recipes where id = ?', id);
+        console.log(response)
+        return response["protocol41"] ?
+        { message: "deleted the recipe successfully." } :
+        { message: "failed to delete the recipe." };
+    } catch(err) {
+        console.log(err);
+    }
+    connection.close();
 }
 
 exports.updateRecipe = (recipe) => {
