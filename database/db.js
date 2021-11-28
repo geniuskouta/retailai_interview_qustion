@@ -120,11 +120,24 @@ exports.getRecipeById = async (id) => {
     }
 }
 
-exports.deleteRecipeById = (id) => {
-
+exports.createRecipe = async (recipe) => {
+    try {
+        console.log(recipe)
+        const connection = new Database(config);
+        const response = await connection.query('INSERT INTO recipes set ?', {
+            title: recipe.title,
+            making_time: recipe.making_time,
+            serves: recipe.serves,
+            ingredients: recipe.ingredients,
+            cost: recipe.cost,
+        });
+        return await connection.query('SELECT * FROM recipes where id = ?', response.insertId);
+    } catch(err) {
+        console.log(err);
+    }
 }
 
-exports.createRecipe = (recipe) => {
+exports.deleteRecipeById = (id) => {
 
 }
 

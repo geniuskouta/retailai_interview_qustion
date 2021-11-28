@@ -15,9 +15,17 @@ exports.getRecipeById = async (req, res) => {
     });
 }
 
-exports.createRecipe = (recipe) => {
-    // const recipe = new Recipe();
-    
+exports.createRecipe = async (req, res) => {
+    const recipe = new Recipe(
+        req.body.title,
+        req.body.making_time,
+        req.body.serves,
+        req.body.ingredients,
+        req.body.cost
+    );
+    return await recipe.create().then(data => {
+        res.send(JSON.stringify(data));
+    });
 }
 
 exports.updateRecipe = (recipe) => {

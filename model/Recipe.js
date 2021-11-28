@@ -1,11 +1,11 @@
 const db = require('../database/db.js');
 
 class Recipe {
-    constructor(title, making_time, serve, ingridients, cost, id) {
+    constructor(title, making_time, serve, ingredients, cost, id) {
         this.title = title; // string
         this.making_time = making_time; // "45min"
-        this.serve = serve; // "4 people"
-        this.ingridients = ingridients; // "onion, water, chicken"
+        this.serves = serve; // "4 people"
+        this.ingredients = ingredients; // "onion, water, chicken"
         this.cost = cost; // "1000"
         this.id = id ? id : null;
     }
@@ -14,8 +14,8 @@ class Recipe {
         return await db.getRecipe();
     }
 
-    create() {
-        db.createRecipe(this);
+    async create() {
+        return await db.createRecipe(this);
     }
 
     update() {
