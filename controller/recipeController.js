@@ -28,8 +28,19 @@ exports.createRecipe = async (req, res) => {
     });
 }
 
-exports.updateRecipe = (recipe) => {
-    // const recipe = new Recipe();
+exports.updateRecipe = async (req, res) => {
+    const { id } = req.params;
+    const recipe = new Recipe(
+        req.body.title,
+        req.body.making_time,
+        req.body.serves,
+        req.body.ingredients,
+        req.body.cost,
+        id
+    );
+    return await recipe.update().then(data => {
+        res.send(JSON.stringify(data));
+    });
 }
 
 exports.deleteRecipeById = async (req, res) => {

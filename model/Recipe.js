@@ -18,8 +18,8 @@ class Recipe {
         return await db.createRecipe(this);
     }
 
-    update() {
-        db.updateRecipe(this);
+    async update() {
+        return await db.updateRecipe(this);
     }
 
     async getById(id) {

@@ -119,7 +119,6 @@ exports.getRecipeById = async (id) => {
     } catch(err) {
         console.log(err);
     }
-    connection.close();
 }
 
 exports.createRecipe = async (recipe) => {
@@ -136,7 +135,6 @@ exports.createRecipe = async (recipe) => {
     } catch(err) {
         console.log(err);
     }
-    connection.close();
 }
 
 exports.deleteRecipeById = async (id) => {
@@ -150,9 +148,20 @@ exports.deleteRecipeById = async (id) => {
     } catch(err) {
         console.log(err);
     }
-    connection.close();
 }
 
-exports.updateRecipe = (recipe) => {
-
+exports.updateRecipe = async (recipe) => {
+    try {
+        const connection = new Database(config);
+        await connection.query(`UPDATE recipes set ? where id = ${recipe.id}`, {
+            title: recipe.title,
+            making_time: recipe.making_time,
+            serves: recipe.serves,
+            ingredients: recipe.ingredients,
+            cost: recipe.cost,
+        });
+        return await connection.query('SELECT * FROM recipes where id = ?', recipe.id);
+    } catch(err) {
+        console.log(err);
+    }
 }
